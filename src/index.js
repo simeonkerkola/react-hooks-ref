@@ -1,10 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const App = ({ initialCount = 2 }) => {
+  const [count, setCount] = useState(initialCount);
+  const [text, setText] = useState('');
+
+  const increment = () => {
+    setCount(count + 1);
+  };
+
+  const decrement = () => {
+    setCount(count - 1);
+  };
+
+  const reset = () => {
+    setCount(initialCount);
+  };
+  return (
+    <div>
+      <p>
+        The current {text || 'count'} is {count}
+      </p>
+      <button onClick={increment}>+1</button>
+      <button onClick={decrement}>-1</button>
+      <button onClick={reset}>reset</button>
+      <input type="text" value={text} onChange={e => setText(e.target.value)} />
+    </div>
+  );
+};
+
+ReactDOM.render(<App initialCount={5} />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
