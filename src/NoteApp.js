@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-export const NoteApp = ({ count }) => {
-  const [notes, setNotes] = useState([]);
+const NoteApp = () => {
+  const storedNotes = JSON.parse(localStorage.getItem('notes'));
+  const [notes, setNotes] = useState(storedNotes || []);
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
-
+  useEffect(() => {
+    localStorage.setItem('notes', JSON.stringify(notes));
+  });
   const addNote = e => {
     e.preventDefault();
     setNotes([...notes, { title, body }]);
@@ -35,3 +38,5 @@ export const NoteApp = ({ count }) => {
     </div>
   );
 };
+
+export default NoteApp;
