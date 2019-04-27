@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from 'react';
 
 const NoteApp = () => {
-  const storedNotes = JSON.parse(localStorage.getItem('notes'));
-  const [notes, setNotes] = useState(storedNotes || []);
+  const [notes, setNotes] = useState([]);
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
+
+  useEffect(() => {
+    const storedNotes = JSON.parse(localStorage.getItem('notes'));
+    storedNotes && setNotes(storedNotes);
+  }, []);
+
   useEffect(() => {
     localStorage.setItem('notes', JSON.stringify(notes));
-  });
+  }, [notes]);
   const addNote = e => {
     e.preventDefault();
     setNotes([...notes, { title, body }]);

@@ -5,9 +5,13 @@ const CounterApp = ({ initialCount = 2 }) => {
   const [text, setText] = useState('');
 
   useEffect(() => {
+    console.log('only runs on mount');
+  }, []);
+
+  useEffect(() => {
     console.log('effect');
     document.title = count;
-  });
+  }, [count]);
 
   const increment = () => {
     setCount(count + 1);
