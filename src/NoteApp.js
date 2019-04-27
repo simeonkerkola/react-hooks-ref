@@ -34,13 +34,25 @@ const NoteApp = () => {
       </form>
       <ul>
         {notes.map(({ title, body }) => (
-          <li key={title}>
-            {title} <button onClick={() => remove(title)}>x</button>
-            <p>{body}</p>
-          </li>
+          <Note key={title} title={title} body={body} remove={remove} />
         ))}
       </ul>
     </div>
+  );
+};
+
+const Note = ({ title, body, remove }) => {
+  useEffect(() => {
+    console.log('kj');
+    return () => {
+      console.log('Cleaning up');
+    };
+  }, []);
+  return (
+    <li>
+      {title} <button onClick={() => remove(title)}>x</button>
+      <p>{body}</p>
+    </li>
   );
 };
 
